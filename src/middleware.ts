@@ -3,6 +3,8 @@ import type { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const headers = request.headers;
+  headers.set('x-middleware-request-url', request.nextUrl.href);
+  headers.set('x-middleware-request-legacy-url', request.url);
   if (request.nextUrl.searchParams.get('accessToken')) {
     headers.set('Authorization', request.nextUrl.searchParams.get('accessToken')!);
   }
@@ -14,7 +16,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+      source: '/((?!_next/static|_next/image|favicon.ico).*)',
       // otherwise server actions do not work
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
