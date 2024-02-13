@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
+  console.log('!!!!!!!!!!!!middleware called!!!');
   const headers = request.headers;
   headers.set('x-middleware-request-url', request.nextUrl.href);
   headers.set('x-middleware-request-legacy-url', request.url);
